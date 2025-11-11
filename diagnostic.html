@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 { color: #6C5CE7; }
+        h2 { color: #333; border-bottom: 2px solid #6C5CE7; padding-bottom: 10px; }
+        .success { color: #00E6B8; font-weight: bold; }
+        .error { color: #ff4444; font-weight: bold; }
+        pre {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        button {
+            background: #6C5CE7;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover { background: #5848c7; }
+        .inline { display: inline-block; margin: 0 10px; }
+    </style>
+</head>
+<body>
+    <h1>🔍 DesignMind AI - Diagnostic Page</h1>
+
+    <div class="box">
+        <h2>Step 1: Check File Structure</h2>
+        <div id="file-check">
+            <p>Checking files...</p>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2>Step 2: View HTML Content Sample</h2>
+        <button onclick="loadHTMLSample()">Load HTML Sample</button>
+        <pre id="html-sample">Click button to load...</pre>
+    </div>
+
+    <div class="box">
+        <h2>Step 3: View CSS Sample</h2>
+        <button onclick="loadCSSSample()">Load CSS Sample</button>
+        <pre id="css-sample">Click button to load...</pre>
+    </div>
+
+    <div class="box">
+        <h2>Step 4: Check JavaScript</h2>
+        <button onclick="loadJSSample()">Load JS Sample</button>
+        <pre id="js-sample">Click button to load...</pre>
+    </div>
+
+    <div class="box">
+        <h2>Step 5: Test Basic Rendering</h2>
+        <p>This should show content from the main page:</p>
+        <iframe src="index.html" style="width: 100%; height: 400px; border: 2px solid #6C5CE7; border-radius: 8px;"></iframe>
+    </div>
+
+    <div class="box">
+        <h2>Step 6: Open Main Page</h2>
+        <button onclick="window.open('index.html', '_blank')">Open in New Tab</button>
+        <button onclick="window.location.href='index.html'">Open in Same Tab</button>
+    </div>
+
+    <div class="box">
+        <h2>Console Output</h2>
+        <p>Open browser console (F12) and check for messages. You should see:</p>
+        <ul>
+            <li>✓ "DesignMind AI - JavaScript loaded successfully"</li>
+            <li>✓ "Initializing GSAP animations" or "Using fallback..."</li>
+        </ul>
+        <pre id="console-log"></pre>
+    </div>
+
+    <script>
+        // Intercept console.log
+        const originalLog = console.log;
+        const originalError = console.error;
+        const logOutput = document.getElementById('console-log');
+
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            logOutput.textContent += args.join(' ') + '\n';
+        };
+
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            logOutput.textContent += 'ERROR: ' + args.join(' ') + '\n';
+        };
+
+        // Check files
+        async function checkFiles() {
+            const files = [
+                'index.html',
+                'css/main.css',
+                'js/main.js'
+            ];
+
+            const fileCheck = document.getElementById('file-check');
+            fileCheck.innerHTML = '<h3>File Status:</h3>';
+
+            for (const file of files) {
+                try {
+                    const response = await fetch(file, { method: 'HEAD' });
+                    const status = response.ok ? '✓' : '✗';
+                    const className = response.ok ? 'success' : 'error';
+                    const size = response.headers.get('content-length') || 'unknown';
+                    fileCheck.innerHTML += `<div class="${className}">${status} ${file} (${size} bytes)</div>`;
+                } catch (error) {
+                    fileCheck.innerHTML += `<div class="error">✗ ${file} - ${error.message}</div>`;
+                }
+            }
+        }
+
+        async function loadHTMLSample() {
+            try {
+                const response = await fetch('index.html');
+                const text = await response.text();
+                const lines = text.split('\n');
+                const sample = lines.slice(50, 100).join('\n');
+                document.getElementById('html-sample').textContent = 'Lines 50-100:\n' + sample;
+            } catch (error) {
+                document.getElementById('html-sample').textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function loadCSSSample() {
+            try {
+                const response = await fetch('css/main.css');
+                const text = await response.text();
+                const lines = text.split('\n');
+                const sample = lines.slice(0, 50).join('\n');
+                document.getElementById('css-sample').textContent = 'First 50 lines:\n' + sample;
+            } catch (error) {
+                document.getElementById('css-sample').textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function loadJSSample() {
+            try {
+                const response = await fetch('js/main.js');
+                const text = await response.text();
+                const lines = text.split('\n');
+                const sample = lines.slice(0, 30).join('\n');
+                document.getElementById('js-sample').textContent = 'First 30 lines:\n' + sample;
+            } catch (error) {
+                document.getElementById('js-sample').textContent = 'Error: ' + error.message;
+            }
+        }
+
+        // Run file check on load
+        setTimeout(checkFiles, 500);
+    </script>
+</body>
+</html>
