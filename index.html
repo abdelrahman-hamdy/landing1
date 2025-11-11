@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DesignMind AI - From Research to Pixel-Perfect Design in Minutes</title>
+    <meta name="description" content="AI-powered design assistant that transforms user research and brand guidelines into production-ready design systems and interactive prototypes.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="nav-logo">
+                    <svg class="logo-icon" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect width="40" height="40" rx="8" fill="url(#logo-gradient)"/>
+                        <path d="M12 20L18 26L28 14" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="logo-gradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#6C5CE7"/>
+                                <stop offset="100%" stop-color="#00D4FF"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="logo-text">DesignMind AI</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#testimonials">Testimonials</a>
+                    <a href="#integrations">Integrations</a>
+                </div>
+                <div class="nav-actions">
+                    <button class="btn-secondary">Sign In</button>
+                    <button class="btn-primary">Start Free Trial</button>
+                </div>
+                <button class="mobile-menu-btn" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-background">
+            <div class="gradient-mesh"></div>
+            <div class="grid-pattern"></div>
+            <canvas id="particles-canvas"></canvas>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-left">
+                    <div class="hero-badge fade-in">AI-Powered Design Assistant</div>
+                    <h1 class="hero-title fade-in">
+                        From Research to <br>
+                        <span class="rotating-text">
+                            <span class="word active">Beautiful Designs</span>
+                            <span class="word">Design Systems</span>
+                            <span class="word">Prototypes</span>
+                        </span>
+                        <br>in Minutes
+                    </h1>
+                    <p class="hero-subtitle fade-in">AI-powered design assistant that understands UX methodology. Transform research into pixel-perfect interfaces.</p>
+                    <div class="hero-buttons fade-in">
+                        <button class="btn-primary btn-large">
+                            Start Free Trial
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10h12m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <button class="btn-text">Watch Demo →</button>
+                    </div>
+                    <div class="hero-social-proof fade-in">
+                        <div class="avatars">
+                            <div class="avatar"></div>
+                            <div class="avatar"></div>
+                            <div class="avatar"></div>
+                            <div class="avatar"></div>
+                        </div>
+                        <p>Join 12,000+ designers at Google, Meta, Airbnb</p>
+                    </div>
+                </div>
+                <div class="hero-right fade-in">
+                    <div class="hero-visual">
+                        <div class="floating-laptop">
+                            <div class="laptop-screen">
+                                <div class="demo-interface">
+                                    <div class="demo-sidebar"></div>
+                                    <div class="demo-canvas"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="floating-shape shape-1"></div>
+                        <div class="floating-shape shape-2"></div>
+                        <div class="floating-shape shape-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem" id="problem">
+        <div class="container">
+            <h2 class="section-title center fade-in">The Design Process is Broken</h2>
+            <div class="problem-grid">
+                <div class="problem-card fade-in">
+                    <div class="problem-icon" style="background: linear-gradient(135deg, #FF6B6B, #FF8E53);">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <circle cx="16" cy="16" r="12" stroke="white" stroke-width="2"/>
+                            <path d="M16 8v8l4 4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>60% of Time Wasted on Repetitive Tasks</h3>
+                    <p>Designers spend most of their time creating and organizing components instead of solving user problems and crafting experiences.</p>
+                    <div class="problem-stat">60%</div>
+                </div>
+                <div class="problem-card fade-in">
+                    <div class="problem-icon" style="background: linear-gradient(135deg, #00D4FF, #0099CC);">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M8 16h6m6 0h6M12 12l-4 4 4 4m8-8l4 4-4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Disconnected Research & Design</h3>
+                    <p>User research insights get lost in translation. Design decisions lack data backing, leading to multiple revision rounds.</p>
+                    <div class="problem-stat">3x</div>
+                </div>
+                <div class="problem-card fade-in">
+                    <div class="problem-icon" style="background: linear-gradient(135deg, #6C5CE7, #A29BFE);">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <rect x="6" y="6" width="8" height="8" rx="2" stroke="white" stroke-width="2"/>
+                            <rect x="18" y="6" width="8" height="8" rx="2" stroke="white" stroke-width="2"/>
+                            <rect x="6" y="18" width="8" height="8" rx="2" stroke="white" stroke-width="2"/>
+                            <rect x="18" y="18" width="8" height="8" rx="2" stroke="white" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Inconsistent Design Systems</h3>
+                    <p>Without proper tools, design systems become fragmented. Components drift, styles conflict, and brand consistency suffers.</p>
+                    <div class="problem-stat">40%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution" id="solution">
+        <div class="container">
+            <h2 class="section-title center fade-in">How It Works</h2>
+            <p class="section-subtitle center fade-in">Four simple steps to transform your design workflow</p>
+
+            <div class="solution-steps">
+                <div class="step-connector"></div>
+
+                <div class="solution-step fade-in">
+                    <div class="step-badge">STEP 1</div>
+                    <div class="step-content">
+                        <div class="step-text">
+                            <h3>Upload Your Research</h3>
+                            <p>Drop in user interviews, surveys, or research documents. Our AI analyzes the content to extract key insights and pain points.</p>
+                            <ul class="step-features">
+                                <li>Automatic insight extraction</li>
+                                <li>User persona generation</li>
+                                <li>Pain point identification</li>
+                            </ul>
+                        </div>
+                        <div class="step-visual">
+                            <div class="visual-mockup mockup-upload">
+                                <div class="upload-area">
+                                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                                        <path d="M32 42V22m0 0l-8 8m8-8l8 8M16 52h32" stroke="#6C5CE7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <p>Drop files here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="solution-step fade-in">
+                    <div class="step-badge">STEP 2</div>
+                    <div class="step-content reverse">
+                        <div class="step-visual">
+                            <div class="visual-mockup mockup-system">
+                                <div class="color-palette">
+                                    <div class="color-item" style="background: #6C5CE7;"></div>
+                                    <div class="color-item" style="background: #00D4FF;"></div>
+                                    <div class="color-item" style="background: #0C0E27;"></div>
+                                    <div class="color-item" style="background: #E8E3FF;"></div>
+                                </div>
+                                <div class="typography-sample">Aa</div>
+                            </div>
+                        </div>
+                        <div class="step-text">
+                            <h3>AI Generates Design System</h3>
+                            <p>Based on your brand guidelines or preferences, AI creates a complete design system with colors, typography, and spacing rules.</p>
+                            <ul class="step-features">
+                                <li>Brand-aligned color palettes</li>
+                                <li>Typography scales</li>
+                                <li>Spacing and grid systems</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="solution-step fade-in">
+                    <div class="step-badge">STEP 3</div>
+                    <div class="step-content">
+                        <div class="step-text">
+                            <h3>Design with AI Assistance</h3>
+                            <p>Create designs with intelligent suggestions. AI recommends components, layouts, and improvements based on best practices.</p>
+                            <ul class="step-features">
+                                <li>Context-aware suggestions</li>
+                                <li>Auto-layout components</li>
+                                <li>Real-time collaboration</li>
+                            </ul>
+                        </div>
+                        <div class="step-visual">
+                            <div class="visual-mockup mockup-canvas">
+                                <div class="canvas-grid">
+                                    <div class="canvas-element"></div>
+                                    <div class="canvas-element"></div>
+                                    <div class="canvas-element"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="solution-step fade-in">
+                    <div class="step-badge">STEP 4</div>
+                    <div class="step-content reverse">
+                        <div class="step-visual">
+                            <div class="visual-mockup mockup-export">
+                                <div class="code-preview">
+                                    <div class="code-line"></div>
+                                    <div class="code-line"></div>
+                                    <div class="code-line"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-text">
+                            <h3>Export Production Code</h3>
+                            <p>Get clean, production-ready code in React, Vue, or HTML/CSS. No manual coding required.</p>
+                            <ul class="step-features">
+                                <li>Multiple framework support</li>
+                                <li>Clean, semantic code</li>
+                                <li>Component documentation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-background">
+            <div class="floating-orb orb-1"></div>
+            <div class="floating-orb orb-2"></div>
+        </div>
+        <div class="container">
+            <h2 class="section-title center fade-in">Powerful Features for Modern Designers</h2>
+
+            <div class="features-tabs fade-in">
+                <button class="tab-btn active" data-tab="research">Research Analysis</button>
+                <button class="tab-btn" data-tab="system">Design Systems</button>
+                <button class="tab-btn" data-tab="components">AI Components</button>
+                <button class="tab-btn" data-tab="collaboration">Collaboration</button>
+                <button class="tab-btn" data-tab="export">Code Export</button>
+            </div>
+
+            <div class="features-content">
+                <div class="feature-panel active" data-panel="research">
+                    <div class="feature-text">
+                        <h3>Transform Research into Actionable Insights</h3>
+                        <p>Upload user interviews, surveys, and research documents. Our AI extracts patterns, generates personas, and identifies opportunities.</p>
+                        <ul class="feature-list">
+                            <li>Automatic theme extraction</li>
+                            <li>User persona generation</li>
+                            <li>Pain point mapping</li>
+                            <li>Opportunity identification</li>
+                        </ul>
+                        <button class="btn-primary">Learn More</button>
+                    </div>
+                    <div class="feature-demo">
+                        <div class="demo-window">
+                            <div class="demo-content research-demo">
+                                <div class="insight-card">User wants faster checkout</div>
+                                <div class="insight-card">Mobile experience is frustrating</div>
+                                <div class="insight-card">Search functionality unclear</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-panel" data-panel="system">
+                    <div class="feature-text">
+                        <h3>Auto-Generate Complete Design Systems</h3>
+                        <p>Create comprehensive design systems in minutes. AI generates colors, typography, spacing, and component libraries aligned with your brand.</p>
+                        <ul class="feature-list">
+                            <li>Brand-aligned color palettes</li>
+                            <li>Typography scales</li>
+                            <li>Spacing and grid systems</li>
+                            <li>Component libraries</li>
+                        </ul>
+                        <button class="btn-primary">Learn More</button>
+                    </div>
+                    <div class="feature-demo">
+                        <div class="demo-window">
+                            <div class="demo-content system-demo">
+                                <div class="system-colors">
+                                    <div class="color-box"></div>
+                                    <div class="color-box"></div>
+                                    <div class="color-box"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-panel" data-panel="components">
+                    <div class="feature-text">
+                        <h3>Context-Aware Component Generation</h3>
+                        <p>Need a login form? Pricing table? AI generates components tailored to your specific use case and design system.</p>
+                        <ul class="feature-list">
+                            <li>Smart component suggestions</li>
+                            <li>Auto-responsive layouts</li>
+                            <li>Accessibility built-in</li>
+                            <li>Instant variations</li>
+                        </ul>
+                        <button class="btn-primary">Learn More</button>
+                    </div>
+                    <div class="feature-demo">
+                        <div class="demo-window">
+                            <div class="demo-content components-demo">
+                                <div class="component-grid">
+                                    <div class="component-item"></div>
+                                    <div class="component-item"></div>
+                                    <div class="component-item"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-panel" data-panel="collaboration">
+                    <div class="feature-text">
+                        <h3>Real-Time Collaboration with AI</h3>
+                        <p>Work together with your team and AI assistant. Get suggestions, feedback, and improvements in real-time.</p>
+                        <ul class="feature-list">
+                            <li>Multi-user editing</li>
+                            <li>AI design critique</li>
+                            <li>Comment threads</li>
+                            <li>Version history</li>
+                        </ul>
+                        <button class="btn-primary">Learn More</button>
+                    </div>
+                    <div class="feature-demo">
+                        <div class="demo-window">
+                            <div class="demo-content collab-demo">
+                                <div class="cursor cursor-1"></div>
+                                <div class="cursor cursor-2"></div>
+                                <div class="cursor cursor-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-panel" data-panel="export">
+                    <div class="feature-text">
+                        <h3>Export Production-Ready Code</h3>
+                        <p>Get clean, semantic code in your preferred framework. React, Vue, Svelte, or plain HTML/CSS.</p>
+                        <ul class="feature-list">
+                            <li>Multiple frameworks</li>
+                            <li>Clean, maintainable code</li>
+                            <li>Component documentation</li>
+                            <li>TypeScript support</li>
+                        </ul>
+                        <button class="btn-primary">Learn More</button>
+                    </div>
+                    <div class="feature-demo">
+                        <div class="demo-window">
+                            <div class="demo-content export-demo">
+                                <div class="code-editor">
+                                    <pre><code>&lt;Button variant="primary"&gt;
+  Click me
+&lt;/Button&gt;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo -->
+    <section class="interactive-demo" id="demo">
+        <div class="container">
+            <h2 class="section-title center fade-in">See It in Action</h2>
+            <p class="section-subtitle center fade-in">Experience the power of AI-assisted design</p>
+
+            <div class="demo-browser fade-in">
+                <div class="browser-header">
+                    <div class="browser-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="browser-url">designmind.ai/demo</div>
+                </div>
+                <div class="browser-content">
+                    <div class="demo-steps">
+                        <div class="demo-step active" data-step="1">
+                            <div class="demo-ui">
+                                <div class="upload-zone">
+                                    <p>Drop research file</p>
+                                </div>
+                            </div>
+                            <div class="demo-annotation">Upload your research</div>
+                        </div>
+                        <div class="demo-step" data-step="2">
+                            <div class="demo-ui">
+                                <div class="analysis-result">
+                                    <div class="insight">Key insight extracted</div>
+                                    <div class="insight">User persona created</div>
+                                </div>
+                            </div>
+                            <div class="demo-annotation">AI analyzes content</div>
+                        </div>
+                        <div class="demo-step" data-step="3">
+                            <div class="demo-ui">
+                                <div class="palette-generated">
+                                    <div class="palette-color"></div>
+                                    <div class="palette-color"></div>
+                                    <div class="palette-color"></div>
+                                </div>
+                            </div>
+                            <div class="demo-annotation">Design system generated</div>
+                        </div>
+                        <div class="demo-step" data-step="4">
+                            <div class="demo-ui">
+                                <div class="code-output">
+                                    <div class="code-block"></div>
+                                </div>
+                            </div>
+                            <div class="demo-annotation">Export clean code</div>
+                        </div>
+                    </div>
+                    <div class="demo-cursor"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title center fade-in">Loved by 12,000+ Designers</h2>
+
+            <div class="testimonials-bento fade-in">
+                <div class="testimonial-card large">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"DesignMind AI cut our design system creation time from 2 weeks to 2 hours. The AI understands design principles better than most junior designers."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="avatar" style="background: linear-gradient(135deg, #6C5CE7, #00D4FF);"></div>
+                        <div>
+                            <div class="author-name">Sarah Chen</div>
+                            <div class="author-title">Lead Designer at Airbnb</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"The research analysis feature is incredible. It found patterns we missed."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="avatar" style="background: linear-gradient(135deg, #FF6B6B, #FF8E53);"></div>
+                        <div>
+                            <div class="author-name">Marcus Johnson</div>
+                            <div class="author-title">UX Researcher</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"Game-changer for our startup. We built our entire design system in a day."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="avatar" style="background: linear-gradient(135deg, #00D4FF, #0099CC);"></div>
+                        <div>
+                            <div class="author-name">Lisa Park</div>
+                            <div class="author-title">Founder at TechStart</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"The code export is clean and production-ready. No more manual translation."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="avatar" style="background: linear-gradient(135deg, #A29BFE, #6C5CE7);"></div>
+                        <div>
+                            <div class="author-name">David Kim</div>
+                            <div class="author-title">Design Engineer at Meta</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"Best investment we made this year. ROI in the first week."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="avatar" style="background: linear-gradient(135deg, #00E6B8, #00B894);"></div>
+                        <div>
+                            <div class="author-name">Emma Wilson</div>
+                            <div class="author-title">Head of Design</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="pricing-background">
+            <div class="gradient-mesh"></div>
+        </div>
+        <div class="container">
+            <h2 class="section-title center fade-in">Simple, Transparent Pricing</h2>
+            <p class="section-subtitle center fade-in">Choose the plan that fits your needs</p>
+
+            <div class="pricing-toggle fade-in">
+                <span class="toggle-label">Monthly</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="pricing-toggle">
+                    <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label">Annual <span class="save-badge">Save 20%</span></span>
+            </div>
+
+            <div class="pricing-cards fade-in">
+                <div class="pricing-card">
+                    <div class="plan-header">
+                        <h3>Starter</h3>
+                        <div class="plan-price">
+                            <span class="price-amount monthly-price">$29</span>
+                            <span class="price-amount annual-price" style="display: none;">$23</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>5 AI design projects</li>
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Basic design systems</li>
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Research analysis</li>
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>HTML/CSS export</li>
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Email support</li>
+                    </ul>
+                    <button class="btn-outline">Get Started</button>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="featured-badge">BEST VALUE</div>
+                    <div class="plan-header">
+                        <h3>Professional</h3>
+                        <div class="plan-price">
+                            <span class="price-amount monthly-price">$99</span>
+                            <span class="price-amount annual-price" style="display: none;">$79</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited AI projects</li>
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Advanced design systems</li>
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>AI component generation</li>
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>React/Vue/Svelte export</li>
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Real-time collaboration</li>
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority support</li>
+                    </ul>
+                    <button class="btn-primary">Get Started</button>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="plan-header">
+                        <h3>Enterprise</h3>
+                        <div class="plan-price">
+                            <span class="price-amount">Custom</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Professional</li>
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom AI training</li>
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Dedicated support</li>
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>SSO & advanced security</li>
+                        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00E6B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>On-premise deployment</li>
+                    </ul>
+                    <button class="btn-outline">Contact Sales</button>
+                </div>
+            </div>
+
+            <div class="faq fade-in">
+                <h3 class="faq-title">Frequently Asked Questions</h3>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What makes DesignMind AI different from Figma or other design tools?</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>DesignMind AI is not a replacement for tools like Figma—it's a complement. While Figma is great for manual design work, DesignMind AI accelerates the process by automating research analysis, generating design systems, and creating components with AI assistance.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Can I use DesignMind AI with my existing design tools?</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes! DesignMind AI integrates with Figma, Sketch, Adobe XD, and other popular design tools. You can export your work directly to these platforms.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Is there a free trial?</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes! We offer a 14-day free trial on all plans. No credit card required. Try all features and see if it's right for your workflow.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What kind of code does DesignMind AI export?</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We export clean, production-ready code in React, Vue, Svelte, or plain HTML/CSS. The code follows best practices, is fully typed (TypeScript), and includes component documentation.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Can I cancel anytime?</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes, you can cancel your subscription at any time. No questions asked, no penalties. Your projects remain accessible even after cancellation.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Is my data secure?</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Absolutely. We use enterprise-grade encryption, SOC 2 compliance, and never train our AI on your private data. Your research and designs are 100% confidential.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integrations -->
+    <section class="integrations" id="integrations">
+        <div class="container">
+            <h2 class="section-title center fade-in">Integrates with Your Favorite Tools</h2>
+            <p class="section-subtitle center fade-in">Seamlessly connect with the tools you already use</p>
+
+            <div class="integrations-grid fade-in">
+                <div class="integration-card">
+                    <div class="integration-logo">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="20" height="28" rx="2" fill="#F24E1E"/>
+                            <rect x="14" width="20" height="28" rx="2" fill="#FF7262"/>
+                            <circle cx="24" cy="34" r="7" fill="#A259FF"/>
+                        </svg>
+                    </div>
+                    <h4>Figma</h4>
+                    <p>Import and export designs</p>
+                    <span class="integration-status">Connected</span>
+                </div>
+                <div class="integration-card">
+                    <div class="integration-logo">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="8" fill="#4A154B"/>
+                            <path d="M18 24h12m-12 6h8" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h4>Slack</h4>
+                    <p>Team notifications</p>
+                    <span class="integration-status">Connected</span>
+                </div>
+                <div class="integration-card">
+                    <div class="integration-logo">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M24 4l6 18h18l-14 11 6 18-16-12-16 12 6-18-14-11h18z" fill="#FBBC04"/>
+                        </svg>
+                    </div>
+                    <h4>Google Drive</h4>
+                    <p>File storage & sync</p>
+                    <span class="integration-status">Connected</span>
+                </div>
+                <div class="integration-card">
+                    <div class="integration-logo">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="8" fill="#000000"/>
+                            <rect x="14" y="14" width="20" height="20" rx="2" fill="white"/>
+                        </svg>
+                    </div>
+                    <h4>Notion</h4>
+                    <p>Documentation hub</p>
+                    <span class="integration-status">Connected</span>
+                </div>
+                <div class="integration-card">
+                    <div class="integration-logo">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="20" fill="#181717"/>
+                            <path d="M24 14v10l8 5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h4>GitHub</h4>
+                    <p>Code repository</p>
+                    <span class="integration-status">Connected</span>
+                </div>
+                <div class="integration-card">
+                    <div class="integration-logo">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="8" fill="#0052CC"/>
+                            <path d="M18 20l6-6 6 6m-6 14V14" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h4>Jira</h4>
+                    <p>Project management</p>
+                    <span class="integration-status">Connected</span>
+                </div>
+                <div class="integration-card">
+                    <div class="integration-logo">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="24" fill="#5E6AD2"/>
+                            <circle cx="24" cy="24" r="8" stroke="white" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h4>Linear</h4>
+                    <p>Issue tracking</p>
+                    <span class="integration-status">Connected</span>
+                </div>
+                <div class="integration-card">
+                    <div class="integration-logo">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="8" fill="#FF4A00"/>
+                            <path d="M14 24h20m-10-10v20" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h4>Zapier</h4>
+                    <p>Workflow automation</p>
+                    <span class="integration-status">Connected</span>
+                </div>
+                <div class="integration-card featured-integration">
+                    <div class="integration-hub-content">
+                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                            <circle cx="32" cy="32" r="4" fill="#6C5CE7"/>
+                            <circle cx="16" cy="16" r="3" fill="#00D4FF" opacity="0.6"/>
+                            <circle cx="48" cy="16" r="3" fill="#00D4FF" opacity="0.6"/>
+                            <circle cx="16" cy="48" r="3" fill="#00D4FF" opacity="0.6"/>
+                            <circle cx="48" cy="48" r="3" fill="#00D4FF" opacity="0.6"/>
+                            <line x1="32" y1="32" x2="16" y2="16" stroke="#6C5CE7" stroke-width="1" opacity="0.3"/>
+                            <line x1="32" y1="32" x2="48" y2="16" stroke="#6C5CE7" stroke-width="1" opacity="0.3"/>
+                            <line x1="32" y1="32" x2="16" y2="48" stroke="#6C5CE7" stroke-width="1" opacity="0.3"/>
+                            <line x1="32" y1="32" x2="48" y2="48" stroke="#6C5CE7" stroke-width="1" opacity="0.3"/>
+                        </svg>
+                        <h4>50+ Integrations</h4>
+                        <p>Connect any tool via API</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta" id="cta">
+        <div class="cta-background">
+            <div class="gradient-mesh"></div>
+            <div class="floating-shape cta-shape-1"></div>
+            <div class="floating-shape cta-shape-2"></div>
+            <canvas id="cta-particles"></canvas>
+        </div>
+        <div class="container">
+            <div class="cta-content fade-in">
+                <h2>Ready to Transform Your Design Process?</h2>
+                <p>Join 12,000+ designers who are creating better designs faster with AI assistance</p>
+                <div class="cta-buttons">
+                    <button class="btn-primary btn-large">Start Free Trial</button>
+                    <button class="btn-outline-white">Schedule Demo</button>
+                </div>
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#00E6B8"/>
+                            <path d="M9 12l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Enterprise Security</span>
+                    </div>
+                    <div class="trust-badge">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" fill="#00E6B8"/>
+                            <path d="M8 12l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>14-Day Free Trial</span>
+                    </div>
+                    <div class="trust-badge">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M20 7h-4V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v3H4" stroke="#00E6B8" stroke-width="2" stroke-linecap="round"/>
+                            <rect x="2" y="7" width="20" height="13" rx="2" fill="#00E6B8" opacity="0.3"/>
+                        </svg>
+                        <span>No Credit Card</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <svg class="logo-icon" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="8" fill="url(#footer-logo-gradient)"/>
+                            <path d="M12 20L18 26L28 14" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <defs>
+                                <linearGradient id="footer-logo-gradient" x1="0" y1="0" x2="40" y2="40">
+                                    <stop offset="0%" stop-color="#6C5CE7"/>
+                                    <stop offset="100%" stop-color="#00D4FF"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span>DesignMind AI</span>
+                    </div>
+                    <p class="footer-tagline">From Research to Pixel-Perfect Design in Minutes</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="GitHub">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23 9.71a8.5 8.5 0 00-.91-4.13 2.92 2.92 0 00-1.72-1A78.36 78.36 0 0012 4.27a78.45 78.45 0 00-8.34.3 2.87 2.87 0 00-1.46.74c-.9.83-1 2.25-1.1 3.45a48.29 48.29 0 000 6.48 9.55 9.55 0 00.3 2.12 2.93 2.93 0 001.71 1.54A78.36 78.36 0 0012 19.73a78.45 78.45 0 008.34-.3 2.87 2.87 0 001.46-.74c.9-.83 1-2.25 1.1-3.45a48.29 48.29 0 000-6.48zM9.75 14.85V8.66l5.92 3.11z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#integrations">Integrations</a></li>
+                        <li><a href="#demo">Demo</a></li>
+                        <li><a href="#">Changelog</a></li>
+                        <li><a href="#">Roadmap</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press Kit</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Security</a></li>
+                        <li><a href="#">Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 DesignMind AI. All rights reserved.</p>
+                <div class="footer-badges">
+                    <span class="badge">SOC 2 Certified</span>
+                    <span class="badge">GDPR Compliant</span>
+                    <span class="badge">ISO 27001</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
