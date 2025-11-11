@@ -1711,12 +1711,35 @@ input:checked + .toggle-slider:before {
    ANIMATIONS & UTILITIES
    ========================================================================== */
 
-.fade-in {
+/* Fade-in elements - visible by default, hidden only when JS loads */
+.fade-in,
+.problem-card,
+.solution-step,
+.pricing-card,
+.integration-card,
+.testimonial-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Only apply fade-in effect when JS has loaded */
+.js-loaded .fade-in {
     opacity: 0;
     transform: translateY(40px);
 }
 
-.fade-in.visible {
+.js-loaded .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s ease;
+}
+
+/* Ensure other elements animate smoothly */
+.js-loaded .problem-card.visible,
+.js-loaded .solution-step.visible,
+.js-loaded .pricing-card.visible,
+.js-loaded .integration-card.visible,
+.js-loaded .testimonial-card.visible {
     opacity: 1;
     transform: translateY(0);
     transition: all 0.8s ease;

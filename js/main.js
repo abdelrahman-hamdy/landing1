@@ -2,8 +2,13 @@
 // MAIN JAVASCRIPT - DesignMind AI Landing Page
 // ==========================================================================
 
+// Add js-loaded class to enable animations
+document.documentElement.classList.add('js-loaded');
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DesignMind AI - JavaScript loaded successfully');
+
     initScrollAnimations();
     initRotatingText();
     initFeaturesTabs();
@@ -20,23 +25,33 @@ document.addEventListener('DOMContentLoaded', function() {
 // ==========================================================================
 
 function initScrollAnimations() {
-    // Register ScrollTrigger plugin
-    gsap.registerPlugin(ScrollTrigger);
+    // Check if GSAP is loaded
+    if (typeof gsap === 'undefined') {
+        console.warn('GSAP not loaded, using fallback animations');
+        useFallbackAnimations();
+        return;
+    }
 
-    // Fade in elements on scroll
-    gsap.utils.toArray('.fade-in').forEach((element, index) => {
-        gsap.from(element, {
-            scrollTrigger: {
-                trigger: element,
-                start: 'top 80%',
-                toggleActions: 'play none none none'
-            },
-            y: 60,
-            opacity: 0,
-            duration: 0.8,
-            delay: index % 3 * 0.2 // Stagger effect for grouped elements
+    console.log('Initializing GSAP animations');
+
+    try {
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Fade in elements on scroll
+        gsap.utils.toArray('.fade-in').forEach((element, index) => {
+            gsap.from(element, {
+                scrollTrigger: {
+                    trigger: element,
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                y: 60,
+                opacity: 0,
+                duration: 0.8,
+                delay: index % 3 * 0.2 // Stagger effect for grouped elements
+            });
         });
-    });
 
     // Animate problem cards with stagger
     gsap.from('.problem-card', {
@@ -101,6 +116,40 @@ function initScrollAnimations() {
             rotation: 360,
             ease: 'none'
         });
+    });
+
+    console.log('GSAP animations initialized successfully');
+    } catch (error) {
+        console.error('Error initializing GSAP:', error);
+        useFallbackAnimations();
+    }
+}
+
+// Fallback animations using Intersection Observer
+function useFallbackAnimations() {
+    console.log('Using fallback Intersection Observer animations');
+
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // Observe all fade-in elements
+    document.querySelectorAll('.fade-in').forEach(element => {
+        observer.observe(element);
+    });
+
+    // Observe cards and other animated elements
+    document.querySelectorAll('.problem-card, .solution-step, .pricing-card, .integration-card, .testimonial-card').forEach(element => {
+        observer.observe(element);
     });
 }
 
@@ -457,25 +506,8 @@ function validateEmail(email) {
 
 // ==========================================================================
 // INTERSECTION OBSERVER FOR ANIMATIONS (Fallback)
+// Note: Now handled by useFallbackAnimations() function
 // ==========================================================================
-
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, observerOptions);
-
-// Observe all fade-in elements as fallback
-document.querySelectorAll('.fade-in').forEach(element => {
-    observer.observe(element);
-});
 
 // ==========================================================================
 // CURSOR FOLLOWER (Optional Enhancement)
