@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - DesignMind AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-card {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 8px 16px;
+            border-radius: 4px;
+            display: inline-block;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .pass { background: #00E6B8; color: white; }
+        .fail { background: #ff4444; color: white; }
+        button {
+            background: #6C5CE7;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #5848c7;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .link {
+            color: #6C5CE7;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 DesignMind AI - Landing Page Test</h1>
+
+    <div class="test-card">
+        <h2>📋 Quick Start</h2>
+        <p>Click the button below to open the main landing page:</p>
+        <button onclick="window.open('index.html', '_blank')">Open Landing Page</button>
+    </div>
+
+    <div class="test-card">
+        <h2>✅ System Check</h2>
+        <div id="checks">
+            <p>Running tests...</p>
+        </div>
+    </div>
+
+    <div class="test-card">
+        <h2>📖 Troubleshooting Guide</h2>
+        <h3>If sections appear empty:</h3>
+        <ol>
+            <li><strong>Open Browser Console</strong> (F12 or Right-click → Inspect → Console)</li>
+            <li>Look for any error messages (they will be in red)</li>
+            <li>Check if you see: "DesignMind AI - JavaScript loaded successfully"</li>
+            <li>Check if you see: "GSAP animations initialized successfully" or "Using fallback Intersection Observer animations"</li>
+        </ol>
+
+        <h3>Common Issues:</h3>
+        <ul>
+            <li><strong>CORS Error:</strong> If opening from file:// protocol, use a local server instead</li>
+            <li><strong>CSS not loading:</strong> Check the browser console for 404 errors</li>
+            <li><strong>JavaScript disabled:</strong> Content should still be visible (animations won't work)</li>
+            <li><strong>CDN blocked:</strong> Check internet connection or firewall settings</li>
+        </ul>
+
+        <h3>Quick Fix - Use a Local Server:</h3>
+        <pre><code># Using Python 3
+python3 -m http.server 8000
+
+# Using PHP
+php -S localhost:8000
+
+# Using Node.js (npx)
+npx http-server -p 8000
+
+# Then open: http://localhost:8000</code></pre>
+    </div>
+
+    <div class="test-card">
+        <h2>🎨 Expected Sections</h2>
+        <ul>
+            <li>✓ Navigation Bar (fixed at top)</li>
+            <li>✓ Hero Section - "From Research to [Rotating Text] in Minutes"</li>
+            <li>✓ Problem Section - "The Design Process is Broken" (3 cards)</li>
+            <li>✓ Solution Section - "How It Works" (4 steps)</li>
+            <li>✓ Features Section - Tab navigation (5 tabs)</li>
+            <li>✓ Interactive Demo - Browser mockup</li>
+            <li>✓ Testimonials - Bento grid layout</li>
+            <li>✓ Pricing Section - 3 pricing cards with toggle</li>
+            <li>✓ Integrations - 9 integration cards</li>
+            <li>✓ Final CTA - "Ready to Transform Your Design Process?"</li>
+            <li>✓ Footer - 5 columns of links</li>
+        </ul>
+    </div>
+
+    <div class="test-card">
+        <h2>🎬 Expected Animations</h2>
+        <ul>
+            <li>Hero text rotating every 3 seconds</li>
+            <li>Sections fading in as you scroll</li>
+            <li>Cards lifting on hover</li>
+            <li>Tab transitions when clicking features</li>
+            <li>FAQ accordion expanding/collapsing</li>
+            <li>Particle animation in hero background</li>
+            <li>Floating shapes rotating</li>
+            <li>Pricing toggle switching prices</li>
+        </ul>
+    </div>
+
+    <script>
+        // Run system checks
+        function runChecks() {
+            const checksDiv = document.getElementById('checks');
+            let html = '';
+
+            // Check if files exist
+            const files = [
+                { path: 'css/main.css', name: 'CSS File' },
+                { path: 'js/main.js', name: 'JavaScript File' },
+                { path: 'index.html', name: 'Main HTML' }
+            ];
+
+            html += '<h3>File Checks:</h3>';
+
+            files.forEach(file => {
+                fetch(file.path, { method: 'HEAD' })
+                    .then(response => {
+                        const status = response.ok ? 'pass' : 'fail';
+                        const text = response.ok ? 'Found ✓' : 'Not Found ✗';
+                        checksDiv.innerHTML += `<div class="status ${status}">${file.name}: ${text}</div><br>`;
+                    })
+                    .catch(() => {
+                        checksDiv.innerHTML += `<div class="status fail">${file.name}: Error checking</div><br>`;
+                    });
+            });
+
+            // Check browser capabilities
+            html += '<h3>Browser Capabilities:</h3>';
+
+            const checks = [
+                { test: typeof IntersectionObserver !== 'undefined', name: 'Intersection Observer' },
+                { test: typeof fetch !== 'undefined', name: 'Fetch API' },
+                { test: CSS.supports('display', 'grid'), name: 'CSS Grid' },
+                { test: CSS.supports('display', 'flex'), name: 'CSS Flexbox' },
+                { test: typeof requestAnimationFrame !== 'undefined', name: 'Animation Frame' }
+            ];
+
+            checks.forEach(check => {
+                const status = check.test ? 'pass' : 'fail';
+                const text = check.test ? 'Supported ✓' : 'Not Supported ✗';
+                html += `<div class="status ${status}">${check.name}: ${text}</div><br>`;
+            });
+
+            checksDiv.innerHTML = html;
+
+            // Test network access
+            setTimeout(() => {
+                fetch('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js', { method: 'HEAD' })
+                    .then(response => {
+                        if (response.ok) {
+                            checksDiv.innerHTML += '<div class="status pass">CDN Access: Available ✓</div><br>';
+                        } else {
+                            checksDiv.innerHTML += '<div class="status fail">CDN Access: Failed ✗</div><br>';
+                        }
+                    })
+                    .catch(() => {
+                        checksDiv.innerHTML += '<div class="status fail">CDN Access: Blocked or No Internet ✗</div><br>';
+                    });
+            }, 500);
+        }
+
+        // Run checks on load
+        setTimeout(runChecks, 100);
+    </script>
+</body>
+</html>
