@@ -2,12 +2,12 @@
 // MAIN JAVASCRIPT - DesignMind AI Landing Page
 // ==========================================================================
 
-// Add js-loaded class to enable animations
-document.documentElement.classList.add('js-loaded');
-
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DesignMind AI - JavaScript loaded successfully');
+
+    // Add js-loaded class AFTER content is visible
+    document.documentElement.classList.add('js-loaded');
 
     initScrollAnimations();
     initRotatingText();
@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initParticles();
     initInteractiveDemo();
     initSmoothScroll();
+    initScrollProgress();
 });
 
 // ==========================================================================
@@ -25,131 +26,99 @@ document.addEventListener('DOMContentLoaded', function() {
 // ==========================================================================
 
 function initScrollAnimations() {
-    // Check if GSAP is loaded
-    if (typeof gsap === 'undefined') {
-        console.warn('GSAP not loaded, using fallback animations');
-        useFallbackAnimations();
-        return;
-    }
-
-    console.log('Initializing GSAP animations');
-
-    try {
-        // Register ScrollTrigger plugin
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Fade in elements on scroll
-        gsap.utils.toArray('.fade-in').forEach((element, index) => {
-            gsap.from(element, {
-                scrollTrigger: {
-                    trigger: element,
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
-                },
-                y: 60,
-                opacity: 0,
-                duration: 0.8,
-                delay: index % 3 * 0.2 // Stagger effect for grouped elements
-            });
-        });
-
-    // Animate problem cards with stagger
-    gsap.from('.problem-card', {
-        scrollTrigger: {
-            trigger: '.problem-grid',
-            start: 'top 70%'
-        },
-        y: 80,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2
-    });
-
-    // Animate solution steps
-    gsap.utils.toArray('.solution-step').forEach((step, index) => {
-        gsap.from(step, {
-            scrollTrigger: {
-                trigger: step,
-                start: 'top 75%'
-            },
-            x: index % 2 === 0 ? -100 : 100,
-            opacity: 0,
-            duration: 1,
-            ease: 'power2.out'
-        });
-    });
-
-    // Animate pricing cards
-    gsap.from('.pricing-card', {
-        scrollTrigger: {
-            trigger: '.pricing-cards',
-            start: 'top 70%'
-        },
-        y: 80,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15
-    });
-
-    // Animate integration cards
-    gsap.from('.integration-card', {
-        scrollTrigger: {
-            trigger: '.integrations-grid',
-            start: 'top 70%'
-        },
-        scale: 0.8,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.1
-    });
-
-    // Parallax effect for floating shapes
-    gsap.utils.toArray('.floating-shape').forEach(shape => {
-        gsap.to(shape, {
-            scrollTrigger: {
-                trigger: '.hero',
-                start: 'top top',
-                end: 'bottom top',
-                scrub: 1
-            },
-            y: 200,
-            rotation: 360,
-            ease: 'none'
-        });
-    });
-
-    console.log('GSAP animations initialized successfully');
-    } catch (error) {
-        console.error('Error initializing GSAP:', error);
-        useFallbackAnimations();
-    }
-}
-
-// Fallback animations using Intersection Observer
-function useFallbackAnimations() {
-    console.log('Using fallback Intersection Observer animations');
+    // Use Intersection Observer - simpler and more reliable
+    console.log('Initializing scroll animations with Intersection Observer');
 
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
+        rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                entry.target.classList.add('animate-on-scroll');
+                // Optional: unobserve after animation
+                // observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Observe all fade-in elements
-    document.querySelectorAll('.fade-in').forEach(element => {
+    // Observe all animated elements
+    const animatedElements = document.querySelectorAll(
+        '.fade-in, .problem-card, .solution-step, .pricing-card, .integration-card, .testimonial-card'
+    );
+
+    animatedElements.forEach(element => {
         observer.observe(element);
     });
 
-    // Observe cards and other animated elements
-    document.querySelectorAll('.problem-card, .solution-step, .pricing-card, .integration-card, .testimonial-card').forEach(element => {
-        observer.observe(element);
+    // Optional: Try to use GSAP if available for enhanced animations
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        console.log('GSAP available - adding enhanced parallax effects');
+        try {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Subtle parallax effect for floating shapes only
+            gsap.utils.toArray('.floating-shape').forEach(shape => {
+                gsap.to(shape, {
+                    scrollTrigger: {
+                        trigger: '.hero',
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: 1
+                    },
+                    y: 200,
+                    rotation: 360,
+                    ease: 'none'
+                });
+            });
+
+            // Smooth scaling for hero visual
+            gsap.to('.hero-visual', {
+                scrollTrigger: {
+                    trigger: '.hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 1
+                },
+                scale: 0.9,
+                opacity: 0.8,
+                ease: 'none'
+            });
+        } catch (error) {
+            console.warn('GSAP enhancement failed:', error);
+        }
+    }
+
+    console.log('Scroll animations initialized successfully');
+}
+
+// ==========================================================================
+// SCROLL PROGRESS INDICATOR
+// ==========================================================================
+
+function initScrollProgress() {
+    // Create scroll progress bar
+    const progressBar = document.createElement('div');
+    progressBar.id = 'scroll-progress';
+    progressBar.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #6C5CE7 0%, #00D4FF 100%);
+        width: 0%;
+        z-index: 9999;
+        transition: width 0.1s ease;
+    `;
+    document.body.appendChild(progressBar);
+
+    // Update progress on scroll
+    window.addEventListener('scroll', () => {
+        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        progressBar.style.width = scrolled + '%';
     });
 }
 

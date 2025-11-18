@@ -71,6 +71,7 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
 }
 
 body {
@@ -80,6 +81,27 @@ body {
     color: var(--deep-indigo);
     background: var(--white);
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Selection color */
+::selection {
+    background: var(--primary-purple);
+    color: var(--white);
+}
+
+::-moz-selection {
+    background: var(--primary-purple);
+    color: var(--white);
+}
+
+/* Focus visible for accessibility */
+*:focus-visible {
+    outline: 3px solid var(--primary-purple);
+    outline-offset: 2px;
+    border-radius: 4px;
 }
 
 .container {
@@ -145,21 +167,51 @@ ul {
     border-radius: var(--radius-sm);
     font-size: 16px;
     font-weight: var(--font-weight-semibold);
-    transition: all var(--transition-normal);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Enhanced button hover ripple effect */
+.btn-primary::before,
+.btn-secondary::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:hover::before,
+.btn-secondary:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 .btn-primary {
     background: var(--gradient-primary);
     color: var(--white);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 4px 14px rgba(108, 92, 231, 0.4);
+    border: none;
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(108, 92, 231, 0.5), 0 0 32px rgba(108, 92, 231, 0.3);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(108, 92, 231, 0.4);
 }
 
 .btn-large {
@@ -170,24 +222,27 @@ ul {
 .btn-secondary {
     background: transparent;
     color: var(--primary-purple);
-    border: 2px solid var(--soft-lavender);
+    border: 2px solid var(--primary-purple);
 }
 
 .btn-secondary:hover {
-    background: var(--soft-lavender);
+    background: var(--primary-purple);
+    color: var(--white);
     transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(108, 92, 231, 0.3);
 }
 
 .btn-outline {
     background: transparent;
     color: var(--white);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.4);
 }
 
 .btn-outline:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.8);
     transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.2);
 }
 
 .btn-outline-white {
@@ -200,6 +255,7 @@ ul {
     background: transparent;
     color: var(--white);
     transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.3);
 }
 
 .btn-text {
@@ -222,6 +278,31 @@ ul {
 
 .btn-text:hover::after {
     width: 100%;
+}
+
+/* Loading state for buttons */
+.btn-loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: button-spin 0.6s linear infinite;
+}
+
+@keyframes button-spin {
+    to { transform: rotate(360deg); }
 }
 
 /* ==========================================================================
@@ -571,18 +652,37 @@ ul {
 }
 
 .problem-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: var(--radius-md);
     padding: var(--spacing-xl);
-    transition: all var(--transition-normal);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.problem-card:hover::before {
+    transform: scaleX(1);
 }
 
 .problem-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 48px rgba(108, 92, 231, 0.3);
-    border-color: rgba(108, 92, 231, 0.5);
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(108, 92, 231, 0.4), 0 0 40px rgba(0, 212, 255, 0.2);
+    border-color: rgba(108, 92, 231, 0.6);
+    background: rgba(255, 255, 255, 0.12);
 }
 
 .problem-icon {
@@ -1158,15 +1258,34 @@ ul {
 }
 
 .testimonial-card {
-    background: var(--soft-lavender);
+    background: linear-gradient(135deg, var(--soft-lavender) 0%, rgba(255, 255, 255, 0.9) 100%);
     border-radius: var(--radius-md);
     padding: var(--spacing-xl);
-    transition: all var(--transition-normal);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(108, 92, 231, 0.1);
+    position: relative;
+}
+
+.testimonial-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 0;
+    background: var(--gradient-primary);
+    transition: height 0.4s ease;
+    border-radius: 2px;
+}
+
+.testimonial-card:hover::before {
+    height: 100%;
 }
 
 .testimonial-card:hover {
-    transform: scale(1.02);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 16px 48px rgba(108, 92, 231, 0.2), 0 0 32px rgba(0, 212, 255, 0.1);
+    border-color: rgba(108, 92, 231, 0.3);
 }
 
 .testimonial-card.large {
@@ -1316,24 +1435,49 @@ input:checked + .toggle-slider:before {
 }
 
 .pricing-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.15);
     border-radius: var(--radius-lg);
     padding: var(--spacing-xl);
-    transition: all var(--transition-normal);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.pricing-card::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: var(--radius-lg);
+    padding: 2px;
+    background: var(--gradient-primary);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
 .pricing-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(108, 92, 231, 0.5);
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(108, 92, 231, 0.4);
+}
+
+.pricing-card:hover::after {
+    opacity: 1;
 }
 
 .pricing-card.featured {
-    background: rgba(108, 92, 231, 0.1);
-    border-color: var(--primary-purple);
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+    border-color: rgba(108, 92, 231, 0.5);
     transform: scale(1.05);
     position: relative;
+    box-shadow: 0 16px 48px rgba(108, 92, 231, 0.3);
+}
+
+.pricing-card.featured:hover {
+    transform: scale(1.08) translateY(-8px);
+    box-shadow: 0 24px 72px rgba(108, 92, 231, 0.5), 0 0 60px rgba(0, 212, 255, 0.3);
 }
 
 .featured-badge {
@@ -1711,38 +1855,49 @@ input:checked + .toggle-slider:before {
    ANIMATIONS & UTILITIES
    ========================================================================== */
 
-/* Fade-in elements - visible by default, hidden only when JS loads */
+/* ALL CONTENT VISIBLE BY DEFAULT - No hiding */
 .fade-in,
 .problem-card,
 .solution-step,
 .pricing-card,
 .integration-card,
 .testimonial-card {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible !important;
 }
 
-/* Only apply fade-in effect when JS has loaded */
-.js-loaded .fade-in {
-    opacity: 0;
-    transform: translateY(40px);
+/* Smooth transitions for interactive elements */
+.fade-in,
+.problem-card,
+.solution-step,
+.pricing-card,
+.integration-card,
+.testimonial-card {
+    transition: all 0.3s ease;
 }
 
-.js-loaded .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 0.8s ease;
+/* Hover effects for cards */
+.problem-card:hover,
+.testimonial-card:hover,
+.integration-card:hover {
+    transform: translateY(-8px) !important;
 }
 
-/* Ensure other elements animate smoothly */
-.js-loaded .problem-card.visible,
-.js-loaded .solution-step.visible,
-.js-loaded .pricing-card.visible,
-.js-loaded .integration-card.visible,
-.js-loaded .testimonial-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 0.8s ease;
+/* Animation classes (optional enhancement, doesn't hide content) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-on-scroll {
+    animation: fadeInUp 0.6s ease-out;
 }
 
 /* ==========================================================================
@@ -1859,4 +2014,115 @@ input:checked + .toggle-slider:before {
     .hero-visual {
         height: 400px;
     }
+}
+
+/* ==========================================================================
+   PERFORMANCE OPTIMIZATIONS
+   ========================================================================== */
+
+/* GPU acceleration for animated elements */
+.btn-primary,
+.btn-secondary,
+.problem-card,
+.pricing-card,
+.testimonial-card,
+.integration-card,
+.floating-shape,
+.hero-visual {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar,
+    .hero-background,
+    .features-background,
+    .pricing-background,
+    .cta-background,
+    #scroll-progress {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .problem,
+    .features,
+    .pricing {
+        background: white !important;
+        color: black !important;
+    }
+}
+
+/* Dark mode support (future enhancement) */
+@media (prefers-color-scheme: dark) {
+    /* Optionally add dark mode styles here */
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .btn-primary,
+    .btn-secondary {
+        border: 3px solid currentColor;
+    }
+}
+
+/* Reduced transparency for better readability */
+@media (prefers-reduced-transparency: reduce) {
+    .problem-card,
+    .pricing-card,
+    .navbar {
+        backdrop-filter: none;
+        background: rgba(255, 255, 255, 0.95);
+    }
+}
+
+/* Loading state */
+.page-loading * {
+    animation-play-state: paused !important;
+}
+
+/* Smooth page transitions */
+body {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+body.page-transitioning {
+    opacity: 0;
+}
+
+/* Optimize images */
+img {
+    max-width: 100%;
+    height: auto;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Lazy loading hint */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+img[loading="lazy"].loaded {
+    opacity: 1;
 }
