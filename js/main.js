@@ -1,102 +1,202 @@
-// ============================================================================
-// PREMIUM MINIMAL INTERACTIONS
-// ============================================================================
+// ==========================================================================
+// MAIN JAVASCRIPT - DesignMind AI Landing Page
+// ==========================================================================
 
-(function() {
-    'use strict';
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DesignMind AI - JavaScript loaded successfully');
 
-    // Initialize all components when DOM is ready
-    document.addEventListener('DOMContentLoaded', init);
+    // Add js-loaded class AFTER content is visible
+    document.documentElement.classList.add('js-loaded');
 
-    function init() {
-        initScrollAnimations();
-        initSmoothScroll();
-        initMobileMenu();
-        initNavScroll();
-    }
+    initScrollAnimations();
+    initRotatingText();
+    initFeaturesTabs();
+    initFAQ();
+    initPricingToggle();
+    initMobileMenu();
+    initParticles();
+    initInteractiveDemo();
+    initSmoothScroll();
+    initScrollProgress();
+});
 
-    // ========================================================================
-    // SCROLL ANIMATIONS
-    // ========================================================================
+// ==========================================================================
+// GSAP SCROLL ANIMATIONS
+// ==========================================================================
 
-    function initScrollAnimations() {
-        // Check if GSAP is available
-        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-            console.log('GSAP not loaded, using fallback animations');
-            useFallbackAnimations();
-            return;
+function initScrollAnimations() {
+    // Use Intersection Observer - simpler and more reliable
+    console.log('Initializing scroll animations with Intersection Observer');
+
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-on-scroll');
+                // Optional: unobserve after animation
+                // observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe all animated elements
+    const animatedElements = document.querySelectorAll(
+        '.fade-in, .problem-card, .solution-step, .pricing-card, .integration-card, .testimonial-card'
+    );
+
+    animatedElements.forEach(element => {
+        observer.observe(element);
+    });
+
+    // Optional: Try to use GSAP if available for enhanced animations
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        console.log('GSAP available - adding enhanced parallax effects');
+        try {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Subtle parallax effect for floating shapes only
+            gsap.utils.toArray('.floating-shape').forEach(shape => {
+                gsap.to(shape, {
+                    scrollTrigger: {
+                        trigger: '.hero',
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: 1
+                    },
+                    y: 200,
+                    rotation: 360,
+                    ease: 'none'
+                });
+            });
+
+            // Smooth scaling for hero visual
+            gsap.to('.hero-visual', {
+                scrollTrigger: {
+                    trigger: '.hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 1
+                },
+                scale: 0.9,
+                opacity: 0.8,
+                ease: 'none'
+            });
+        } catch (error) {
+            console.warn('GSAP enhancement failed:', error);
         }
-
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Fade in elements on scroll
-        const fadeElements = gsap.utils.toArray('.hero-content > *, .section-header, .feature-card, .testimonial, .pricing-card');
-
-        fadeElements.forEach((element, index) => {
-            gsap.from(element, {
-                scrollTrigger: {
-                    trigger: element,
-                    start: 'top 85%',
-                    toggleActions: 'play none none none'
-                },
-                y: 40,
-                opacity: 0,
-                duration: 0.8,
-                ease: 'power2.out',
-                delay: (index % 3) * 0.1
-            });
-        });
-
-        // Hero stats counter animation
-        const statNumbers = document.querySelectorAll('.stat-number');
-        statNumbers.forEach(stat => {
-            const text = stat.textContent;
-            const hasPlus = text.includes('+');
-            const hasPercent = text.includes('%');
-            const number = parseInt(text.replace(/[^0-9]/g, ''));
-
-            gsap.from(stat, {
-                scrollTrigger: {
-                    trigger: stat,
-                    start: 'top 90%',
-                    toggleActions: 'play none none none'
-                },
-                textContent: 0,
-                duration: 2,
-                ease: 'power1.out',
-                snap: { textContent: 1 },
-                onUpdate: function() {
-                    const value = Math.ceil(this.targets()[0].textContent);
-                    let formatted = value.toLocaleString();
-                    if (hasPlus) formatted += '+';
-                    if (hasPercent) formatted += '%';
-                    stat.textContent = formatted;
-                }
-            });
-        });
-
-        // Grid items subtle animation
-        gsap.from('.grid-item', {
-            scrollTrigger: {
-                trigger: '.visual-grid',
-                start: 'top 80%'
-            },
-            scale: 0.95,
-            opacity: 0,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: 'power2.out'
-        });
     }
 
-    // Fallback for browsers without GSAP
-    function useFallbackAnimations() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
+    console.log('Scroll animations initialized successfully');
+}
+
+// ==========================================================================
+// SCROLL PROGRESS INDICATOR
+// ==========================================================================
+
+function initScrollProgress() {
+    // Create scroll progress bar
+    const progressBar = document.createElement('div');
+    progressBar.id = 'scroll-progress';
+    progressBar.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #6C5CE7 0%, #00D4FF 100%);
+        width: 0%;
+        z-index: 9999;
+        transition: width 0.1s ease;
+    `;
+    document.body.appendChild(progressBar);
+
+    // Update progress on scroll
+    window.addEventListener('scroll', () => {
+        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        progressBar.style.width = scrolled + '%';
+    });
+}
+
+// ==========================================================================
+// ROTATING TEXT IN HERO
+// ==========================================================================
+
+function initRotatingText() {
+    const words = document.querySelectorAll('.rotating-text .word');
+    if (words.length === 0) return;
+
+    let currentIndex = 0;
+
+    function rotateWords() {
+        // Remove active class from current word
+        words[currentIndex].classList.remove('active');
+
+        // Move to next word
+        currentIndex = (currentIndex + 1) % words.length;
+
+        // Add active class to next word
+        words[currentIndex].classList.add('active');
+    }
+
+    // Rotate every 3 seconds
+    setInterval(rotateWords, 3000);
+}
+
+// ==========================================================================
+// FEATURES TABS
+// ==========================================================================
+
+function initFeaturesTabs() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const featurePanels = document.querySelectorAll('.feature-panel');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const tabName = button.getAttribute('data-tab');
+
+            // Remove active class from all buttons and panels
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            featurePanels.forEach(panel => panel.classList.remove('active'));
+
+            // Add active class to clicked button and corresponding panel
+            button.classList.add('active');
+            const activePanel = document.querySelector(`[data-panel="${tabName}"]`);
+            if (activePanel) {
+                activePanel.classList.add('active');
+
+                // Animate panel content
+                gsap.from(activePanel, {
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.5,
+                    ease: 'power2.out'
+                });
+            }
+        });
+    });
+}
+
+// ==========================================================================
+// FAQ ACCORDION
+// ==========================================================================
+
+function initFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+
+            // Close all FAQ items
+            faqItems.forEach(faqItem => {
+                faqItem.classList.remove('active');
             });
         }, {
             threshold: 0.1,

@@ -76,15 +76,48 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
 }
 
 body {
-    font-family: var(--font-body);
-    font-size: 1.0625rem;
-    line-height: 1.7;
-    color: var(--color-gray-700);
-    background-color: var(--color-white);
-    font-weight: 400;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-body);
+    line-height: 1.6;
+    color: var(--deep-indigo);
+    background: var(--white);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Selection color */
+::selection {
+    background: var(--primary-purple);
+    color: var(--white);
+}
+
+::-moz-selection {
+    background: var(--primary-purple);
+    color: var(--white);
+}
+
+/* Focus visible for accessibility */
+*:focus-visible {
+    outline: 3px solid var(--primary-purple);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+}
+
+section {
+    padding: var(--spacing-4xl) 0;
+    position: relative;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -129,20 +162,106 @@ ul {
     list-style: none;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+
+.btn-primary,
+.btn-secondary,
+.btn-outline,
+.btn-outline-white,
+.btn-text {
+    padding: 14px 32px;
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    font-weight: var(--font-weight-semibold);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Enhanced button hover ripple effect */
+.btn-primary::before,
+.btn-secondary::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:hover::before,
+.btn-secondary:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    color: var(--white);
+    box-shadow: 0 4px 14px rgba(108, 92, 231, 0.4);
+    border: none;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(108, 92, 231, 0.5), 0 0 32px rgba(108, 92, 231, 0.3);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(108, 92, 231, 0.4);
+}
+
+.btn-large {
+    padding: 18px 48px;
+    font-size: 18px;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--primary-purple);
+    border: 2px solid var(--primary-purple);
+}
+
+.btn-secondary:hover {
+    background: var(--primary-purple);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(108, 92, 231, 0.3);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.2);
 }
 
 /* ============================================================================
    LAYOUT
    ============================================================================ */
 
-.container {
-    max-width: var(--max-width);
-    margin-inline: auto;
-    padding-inline: var(--space-6);
+.btn-outline-white:hover {
+    background: transparent;
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.3);
 }
 
 @media (min-width: 768px) {
@@ -161,7 +280,32 @@ section {
     }
 }
 
-/* ============================================================================
+/* Loading state for buttons */
+.btn-loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: button-spin 0.6s linear infinite;
+}
+
+@keyframes button-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
    NAVIGATION
    ============================================================================ */
 
@@ -518,18 +662,38 @@ section {
     }
 }
 
-@media (min-width: 1024px) {
-    .features-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+.problem-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xl);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
 }
 
-.feature-card {
-    padding: var(--space-8);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-gray-200);
-    background: var(--color-white);
-    transition: all var(--transition-base);
+.problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.problem-card:hover::before {
+    transform: scaleX(1);
+}
+
+.problem-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(108, 92, 231, 0.4), 0 0 40px rgba(0, 212, 255, 0.2);
+    border-color: rgba(108, 92, 231, 0.6);
+    background: rgba(255, 255, 255, 0.12);
 }
 
 .feature-card:hover {
@@ -753,10 +917,59 @@ section {
     letter-spacing: 0.025em;
 }
 
-.pricing-header {
-    margin-bottom: var(--space-8);
-    padding-bottom: var(--space-8);
-    border-bottom: 1px solid var(--color-gray-200);
+/* ==========================================================================
+   TESTIMONIALS SECTION
+   ========================================================================== */
+
+.testimonials {
+    background: var(--white);
+}
+
+.testimonials-bento {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-2xl);
+}
+
+.testimonial-card {
+    background: linear-gradient(135deg, var(--soft-lavender) 0%, rgba(255, 255, 255, 0.9) 100%);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xl);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(108, 92, 231, 0.1);
+    position: relative;
+}
+
+.testimonial-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 0;
+    background: var(--gradient-primary);
+    transition: height 0.4s ease;
+    border-radius: 2px;
+}
+
+.testimonial-card:hover::before {
+    height: 100%;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 16px 48px rgba(108, 92, 231, 0.2), 0 0 32px rgba(0, 212, 255, 0.1);
+    border-color: rgba(108, 92, 231, 0.3);
+}
+
+.testimonial-card.large {
+    grid-column: span 8;
+    grid-row: span 2;
+}
+
+.testimonial-card:not(.large) {
+    grid-column: span 4;
 }
 
 .pricing-name {
@@ -769,8 +982,184 @@ section {
 
 .pricing-price {
     display: flex;
-    align-items: baseline;
-    gap: var(--space-1);
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.testimonial-author .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.author-name {
+    font-weight: var(--font-weight-semibold);
+    color: var(--deep-indigo);
+}
+
+.author-title {
+    font-size: 14px;
+    color: rgba(12, 14, 39, 0.6);
+}
+
+/* ==========================================================================
+   PRICING SECTION
+   ========================================================================== */
+
+.pricing {
+    background: var(--deep-indigo);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+}
+
+.pricing-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+.pricing-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-2xl);
+    margin-bottom: var(--spacing-2xl);
+    position: relative;
+    z-index: 1;
+}
+
+.toggle-label {
+    font-weight: var(--font-weight-medium);
+}
+
+.save-badge {
+    background: var(--success-green);
+    color: var(--white);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: var(--font-weight-bold);
+    margin-left: 4px;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: var(--transition-normal);
+    border-radius: 26px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: var(--transition-normal);
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background: var(--gradient-primary);
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(24px);
+}
+
+.pricing-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.pricing-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.pricing-card::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: var(--radius-lg);
+    padding: 2px;
+    background: var(--gradient-primary);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.pricing-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(108, 92, 231, 0.4);
+}
+
+.pricing-card:hover::after {
+    opacity: 1;
+}
+
+.pricing-card.featured {
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+    border-color: rgba(108, 92, 231, 0.5);
+    transform: scale(1.05);
+    position: relative;
+    box-shadow: 0 16px 48px rgba(108, 92, 231, 0.3);
+}
+
+.pricing-card.featured:hover {
+    transform: scale(1.08) translateY(-8px);
+    box-shadow: 0 24px 72px rgba(108, 92, 231, 0.5), 0 0 60px rgba(0, 212, 255, 0.3);
+}
+
+.featured-badge {
+    position: absolute;
+    top: -12px;
+    right: 24px;
+    background: var(--gradient-primary);
+    color: var(--white);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: var(--font-weight-bold);
+}
+
+.plan-header {
+    margin-bottom: var(--spacing-xl);
 }
 
 .price-currency {
@@ -934,22 +1323,53 @@ section {
     }
 }
 
-.footer-copyright {
-    font-size: 0.875rem;
+/* ==========================================================================
+   ANIMATIONS & UTILITIES
+   ========================================================================== */
+
+/* ALL CONTENT VISIBLE BY DEFAULT - No hiding */
+.fade-in,
+.problem-card,
+.solution-step,
+.pricing-card,
+.integration-card,
+.testimonial-card {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible !important;
 }
 
-.footer-social {
-    display: flex;
-    gap: var(--space-6);
+/* Smooth transitions for interactive elements */
+.fade-in,
+.problem-card,
+.solution-step,
+.pricing-card,
+.integration-card,
+.testimonial-card {
+    transition: all 0.3s ease;
 }
 
-.footer-social a {
-    font-size: 0.875rem;
-    transition: color var(--transition-fast);
+/* Hover effects for cards */
+.problem-card:hover,
+.testimonial-card:hover,
+.integration-card:hover {
+    transform: translateY(-8px) !important;
 }
 
-.footer-social a:hover {
-    color: var(--color-white);
+/* Animation classes (optional enhancement, doesn't hide content) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-on-scroll {
+    animation: fadeInUp 0.6s ease-out;
 }
 
 /* ============================================================================
@@ -1001,4 +1421,115 @@ section {
     .hero-actions .btn-secondary {
         width: 100%;
     }
+}
+
+/* ==========================================================================
+   PERFORMANCE OPTIMIZATIONS
+   ========================================================================== */
+
+/* GPU acceleration for animated elements */
+.btn-primary,
+.btn-secondary,
+.problem-card,
+.pricing-card,
+.testimonial-card,
+.integration-card,
+.floating-shape,
+.hero-visual {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar,
+    .hero-background,
+    .features-background,
+    .pricing-background,
+    .cta-background,
+    #scroll-progress {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .problem,
+    .features,
+    .pricing {
+        background: white !important;
+        color: black !important;
+    }
+}
+
+/* Dark mode support (future enhancement) */
+@media (prefers-color-scheme: dark) {
+    /* Optionally add dark mode styles here */
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .btn-primary,
+    .btn-secondary {
+        border: 3px solid currentColor;
+    }
+}
+
+/* Reduced transparency for better readability */
+@media (prefers-reduced-transparency: reduce) {
+    .problem-card,
+    .pricing-card,
+    .navbar {
+        backdrop-filter: none;
+        background: rgba(255, 255, 255, 0.95);
+    }
+}
+
+/* Loading state */
+.page-loading * {
+    animation-play-state: paused !important;
+}
+
+/* Smooth page transitions */
+body {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+body.page-transitioning {
+    opacity: 0;
+}
+
+/* Optimize images */
+img {
+    max-width: 100%;
+    height: auto;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Lazy loading hint */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+img[loading="lazy"].loaded {
+    opacity: 1;
 }
