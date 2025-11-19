@@ -198,492 +198,145 @@ function initFAQ() {
             faqItems.forEach(faqItem => {
                 faqItem.classList.remove('active');
             });
-
-            // Open clicked item if it wasn't active
-            if (!isActive) {
-                item.classList.add('active');
-            }
-        });
-    });
-}
-
-// ==========================================================================
-// PRICING TOGGLE (Monthly/Annual)
-// ==========================================================================
-
-function initPricingToggle() {
-    const toggle = document.getElementById('pricing-toggle');
-    const monthlyPrices = document.querySelectorAll('.monthly-price');
-    const annualPrices = document.querySelectorAll('.annual-price');
-
-    if (!toggle) return;
-
-    toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-            // Show annual prices
-            monthlyPrices.forEach(price => price.style.display = 'none');
-            annualPrices.forEach(price => price.style.display = 'inline');
-        } else {
-            // Show monthly prices
-            monthlyPrices.forEach(price => price.style.display = 'inline');
-            annualPrices.forEach(price => price.style.display = 'none');
-        }
-    });
-}
-
-// ==========================================================================
-// MOBILE MENU
-// ==========================================================================
-
-function initMobileMenu() {
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (!menuBtn) return;
-
-    menuBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        menuBtn.classList.toggle('active');
-    });
-
-    // Close menu when clicking on a link
-    const links = document.querySelectorAll('.nav-links a');
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            menuBtn.classList.remove('active');
-        });
-    });
-}
-
-// ==========================================================================
-// PARTICLE ANIMATION (Canvas)
-// ==========================================================================
-
-function initParticles() {
-    const canvas = document.getElementById('particles-canvas');
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let animationId;
-
-    // Set canvas size
-    function resizeCanvas() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    // Particle class
-    class Particle {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2 + 1;
-            this.speedX = Math.random() * 0.5 - 0.25;
-            this.speedY = Math.random() * 0.5 - 0.25;
-            this.opacity = Math.random() * 0.5 + 0.2;
-        }
-
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-
-            // Wrap around screen
-            if (this.x > canvas.width) this.x = 0;
-            if (this.x < 0) this.x = canvas.width;
-            if (this.y > canvas.height) this.y = 0;
-            if (this.y < 0) this.y = canvas.height;
-        }
-
-        draw() {
-            ctx.fillStyle = `rgba(108, 92, 231, ${this.opacity})`;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    }
-
-    // Create particles
-    function createParticles() {
-        particles = [];
-        const particleCount = Math.min(Math.floor(canvas.width / 10), 100);
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
-    }
-    createParticles();
-    window.addEventListener('resize', createParticles);
-
-    // Animation loop
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        particles.forEach(particle => {
-            particle.update();
-            particle.draw();
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         });
 
-        // Draw connections
-        particles.forEach((particleA, indexA) => {
-            particles.slice(indexA + 1).forEach(particleB => {
-                const dx = particleA.x - particleB.x;
-                const dy = particleA.y - particleB.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+        const elements = document.querySelectorAll('.hero-content > *, .section-header, .feature-card, .testimonial, .pricing-card');
+        elements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px)';
+            el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+            observer.observe(el);
+        });
+    }
 
-                if (distance < 100) {
-                    ctx.strokeStyle = `rgba(108, 92, 231, ${0.2 * (1 - distance / 100)})`;
-                    ctx.lineWidth = 1;
-                    ctx.beginPath();
-                    ctx.moveTo(particleA.x, particleA.y);
-                    ctx.lineTo(particleB.x, particleB.y);
-                    ctx.stroke();
+    // ========================================================================
+    // SMOOTH SCROLL
+    // ========================================================================
+
+    function initSmoothScroll() {
+        const links = document.querySelectorAll('a[href^="#"]');
+
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+
+                // Ignore empty anchors
+                if (href === '#') {
+                    e.preventDefault();
+                    return;
                 }
-            });
-        });
 
-        animationId = requestAnimationFrame(animate);
-    }
-    animate();
+                const target = document.querySelector(href);
+                if (!target) return;
 
-    // Clean up on page unload
-    window.addEventListener('beforeunload', () => {
-        cancelAnimationFrame(animationId);
-    });
-}
+                e.preventDefault();
 
-// ==========================================================================
-// INTERACTIVE DEMO
-// ==========================================================================
-
-function initInteractiveDemo() {
-    const demoSteps = document.querySelectorAll('.demo-step');
-    if (demoSteps.length === 0) return;
-
-    let currentStep = 0;
-
-    function showStep(stepIndex) {
-        demoSteps.forEach((step, index) => {
-            if (index === stepIndex) {
-                step.classList.add('active');
-                gsap.from(step, {
-                    opacity: 0,
-                    scale: 0.95,
-                    duration: 0.5,
-                    ease: 'power2.out'
-                });
-            } else {
-                step.classList.remove('active');
-            }
-        });
-    }
-
-    function nextStep() {
-        currentStep = (currentStep + 1) % demoSteps.length;
-        showStep(currentStep);
-    }
-
-    // Auto-advance demo steps
-    setInterval(nextStep, 4000);
-}
-
-// ==========================================================================
-// SMOOTH SCROLL
-// ==========================================================================
-
-function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href === '#') return;
-
-            e.preventDefault();
-            const target = document.querySelector(href);
-
-            if (target) {
-                const navHeight = document.querySelector('.navbar').offsetHeight;
-                const targetPosition = target.offsetTop - navHeight;
+                const navHeight = document.querySelector('.nav').offsetHeight;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
 
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
                 });
+
+                // Close mobile menu if open
+                const nav = document.querySelector('.nav');
+                nav.classList.remove('mobile-open');
+            });
+        });
+    }
+
+    // ========================================================================
+    // MOBILE MENU
+    // ========================================================================
+
+    function initMobileMenu() {
+        const toggle = document.querySelector('.mobile-toggle');
+        const nav = document.querySelector('.nav');
+
+        if (!toggle) return;
+
+        toggle.addEventListener('click', () => {
+            nav.classList.toggle('mobile-open');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && nav.classList.contains('mobile-open')) {
+                nav.classList.remove('mobile-open');
             }
         });
-    });
-}
-
-// ==========================================================================
-// BUTTON RIPPLE EFFECT
-// ==========================================================================
-
-function createRipple(event) {
-    const button = event.currentTarget;
-    const ripple = document.createElement('span');
-    const rect = button.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    const x = event.clientX - rect.left - size / 2;
-    const y = event.clientY - rect.top - size / 2;
-
-    ripple.style.width = ripple.style.height = size + 'px';
-    ripple.style.left = x + 'px';
-    ripple.style.top = y + 'px';
-    ripple.classList.add('ripple');
-
-    button.appendChild(ripple);
-
-    setTimeout(() => {
-        ripple.remove();
-    }, 600);
-}
-
-// Add ripple effect to all buttons
-document.querySelectorAll('button').forEach(button => {
-    button.addEventListener('click', createRipple);
-});
-
-// ==========================================================================
-// NAVBAR SCROLL EFFECT
-// ==========================================================================
-
-let lastScroll = 0;
-const navbar = document.querySelector('.navbar');
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-
-    // Add shadow when scrolled
-    if (currentScroll > 10) {
-        navbar.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
     }
 
-    lastScroll = currentScroll;
-});
+    // ========================================================================
+    // NAVIGATION SCROLL EFFECT
+    // ========================================================================
 
-// ==========================================================================
-// FORM VALIDATION (if forms are added)
-// ==========================================================================
+    function initNavScroll() {
+        const nav = document.querySelector('.nav');
+        let lastScroll = 0;
 
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-}
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
 
-// ==========================================================================
-// INTERSECTION OBSERVER FOR ANIMATIONS (Fallback)
-// Note: Now handled by useFallbackAnimations() function
-// ==========================================================================
+            // Add shadow when scrolled
+            if (currentScroll > 20) {
+                nav.style.boxShadow = '0 1px 3px 0 rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
 
-// ==========================================================================
-// CURSOR FOLLOWER (Optional Enhancement)
-// ==========================================================================
-
-function initCursorFollower() {
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    document.body.appendChild(cursor);
-
-    let mouseX = 0;
-    let mouseY = 0;
-    let cursorX = 0;
-    let cursorY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    function animateCursor() {
-        const delay = 0.1;
-        cursorX += (mouseX - cursorX) * delay;
-        cursorY += (mouseY - cursorY) * delay;
-
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
-
-        requestAnimationFrame(animateCursor);
+            lastScroll = currentScroll;
+        });
     }
-    animateCursor();
 
-    // Grow cursor on hover
-    document.querySelectorAll('a, button').forEach(element => {
-        element.addEventListener('mouseenter', () => {
-            cursor.style.transform = 'scale(2)';
-        });
-        element.addEventListener('mouseleave', () => {
-            cursor.style.transform = 'scale(1)';
-        });
-    });
-}
+    // ========================================================================
+    // UTILITIES
+    // ========================================================================
 
-// Uncomment to enable custom cursor
-// initCursorFollower();
-
-// ==========================================================================
-// PERFORMANCE OPTIMIZATION
-// ==========================================================================
-
-// Debounce function for resize events
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
+    // Debounce function for performance
+    function debounce(func, wait = 20, immediate = true) {
+        let timeout;
+        return function() {
+            const context = this, args = arguments;
+            const later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            const callNow = immediate && !timeout;
             clearTimeout(timeout);
-            func(...args);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
         };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Throttle function for scroll events
-function throttle(func, limit) {
-    let inThrottle;
-    return function(...args) {
-        if (!inThrottle) {
-            func.apply(this, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
-}
-
-// ==========================================================================
-// CONSOLE EASTER EGG
-// ==========================================================================
-
-console.log('%c👋 Welcome to DesignMind AI!', 'color: #6C5CE7; font-size: 20px; font-weight: bold;');
-console.log('%cInterested in how we built this? We\'re hiring! Check out careers on our site.', 'color: #00D4FF; font-size: 14px;');
-
-// ==========================================================================
-// ANALYTICS TRACKING (Placeholder)
-// ==========================================================================
-
-function trackEvent(eventName, eventData = {}) {
-    // Placeholder for analytics tracking
-    // Replace with your analytics solution (Google Analytics, Mixpanel, etc.)
-    console.log('Track Event:', eventName, eventData);
-}
-
-// Track button clicks
-document.querySelectorAll('.btn-primary').forEach(button => {
-    button.addEventListener('click', () => {
-        trackEvent('CTA_Click', {
-            buttonText: button.textContent.trim(),
-            location: button.closest('section')?.id || 'unknown'
-        });
-    });
-});
-
-// Track section views
-const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            trackEvent('Section_View', {
-                section: entry.target.id || 'unknown'
-            });
-        }
-    });
-}, { threshold: 0.5 });
-
-document.querySelectorAll('section[id]').forEach(section => {
-    sectionObserver.observe(section);
-});
-
-// ==========================================================================
-// UTILITY FUNCTIONS
-// ==========================================================================
-
-// Format numbers with commas
-function formatNumber(num) {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-
-// Animate counter
-function animateCounter(element, target, duration = 2000) {
-    const start = 0;
-    const startTime = performance.now();
-
-    function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const value = Math.floor(progress * target);
-
-        element.textContent = formatNumber(value);
-
-        if (progress < 1) {
-            requestAnimationFrame(update);
-        } else {
-            element.textContent = formatNumber(target);
-        }
     }
 
-    requestAnimationFrame(update);
-}
+    // ========================================================================
+    // ACCESSIBILITY
+    // ========================================================================
 
-// ==========================================================================
-// ERROR HANDLING
-// ==========================================================================
+    // Keyboard navigation indicator
+    let isUsingKeyboard = false;
 
-window.addEventListener('error', (event) => {
-    console.error('Global error:', event.error);
-    // You can send errors to your error tracking service here
-});
-
-// ==========================================================================
-// PAGE LOAD PERFORMANCE
-// ==========================================================================
-
-window.addEventListener('load', () => {
-    // Hide loading spinner if you have one
-    const loadTime = performance.now();
-    console.log(`Page loaded in ${loadTime.toFixed(2)}ms`);
-
-    // Track page load performance
-    trackEvent('Page_Load', {
-        loadTime: loadTime.toFixed(2),
-        userAgent: navigator.userAgent
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+            isUsingKeyboard = true;
+            document.body.classList.add('using-keyboard');
+        }
     });
-});
 
-// ==========================================================================
-// ACCESSIBILITY ENHANCEMENTS
-// ==========================================================================
+    document.addEventListener('mousedown', () => {
+        isUsingKeyboard = false;
+        document.body.classList.remove('using-keyboard');
+    });
 
-// Keyboard navigation for tabs
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Tab') {
-        document.body.classList.add('keyboard-nav');
-    }
-});
+    // ========================================================================
+    // CONSOLE MESSAGE
+    // ========================================================================
 
-document.addEventListener('mousedown', () => {
-    document.body.classList.remove('keyboard-nav');
-});
+    console.log('%cDesignMind AI', 'font-size: 24px; font-weight: 700; color: #000;');
+    console.log('%cPremium Design Platform', 'font-size: 14px; color: #525252;');
 
-// Skip to content link
-const skipLink = document.createElement('a');
-skipLink.href = '#hero';
-skipLink.className = 'skip-link';
-skipLink.textContent = 'Skip to content';
-skipLink.style.cssText = `
-    position: absolute;
-    top: -40px;
-    left: 0;
-    background: #6C5CE7;
-    color: white;
-    padding: 8px;
-    text-decoration: none;
-    z-index: 10000;
-`;
-skipLink.addEventListener('focus', () => {
-    skipLink.style.top = '0';
-});
-skipLink.addEventListener('blur', () => {
-    skipLink.style.top = '-40px';
-});
-document.body.insertBefore(skipLink, document.body.firstChild);
+})();
